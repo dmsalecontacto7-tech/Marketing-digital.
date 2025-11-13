@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Solutions - Agencia de Marketing Digital en Colombia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #f1f1f1;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(22, 33, 62, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--highlight);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--highlight);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--highlight);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%23e94560"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%23e94560"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23e94560"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            position: relative;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--highlight);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            background: var(--highlight);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.4s both;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--highlight);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--highlight);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--highlight);
+            box-shadow: 0 10px 40px rgba(233, 69, 96, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--highlight);
+        }
+
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--highlight);
+            margin: 1rem 0;
+        }
+
+        .add-to-cart {
+            background: var(--highlight);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background: #d63850;
+            transform: scale(1.05);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-content {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--highlight);
+            padding-bottom: 1rem;
+        }
+
+        .close-cart {
+            cursor: pointer;
+            font-size: 2rem;
+            color: var(--highlight);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(15, 52, 96, 0.5);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            color: var(--highlight);
+            border-top: 2px solid var(--highlight);
+            padding-top: 1rem;
+        }
+
+        .remove-item {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .features {
+            background: rgba(15, 52, 96, 0.3);
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--highlight);
+        }
+
+        .testimonials {
+            padding: 4rem 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--highlight);
+        }
+
+        footer {
+            background: var(--primary);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">Digital Solutions</div>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒 <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <h1>Transformamos Tu Negocio Digital</h1>
+        <p class="subtitle">Estrategias de Marketing Digital que Generan Resultados Reales</p>
+        <a href="#servicios" class="cta-button">Explora Nuestros Servicios</a>
+    </section>
+
+    <div class="container" id="servicios">
+        <h2 class="section-title">Nuestros Servicios Premium</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Gestión de Redes Sociales</h3>
+                <p>Administración completa de tus perfiles en Instagram, Facebook, TikTok y LinkedIn. Incluye creación de contenido, programación y análisis de métricas.</p>
+                <div class="service-price">$850.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('Gestión de Redes Sociales', 850000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3>Publicidad Digital (ADS)</h3>
+                <p>Campañas efectivas en Google Ads, Facebook Ads e Instagram Ads. Optimización continua para máximo ROI y conversiones.</p>
+                <div class="service-price">$1.200.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('Publicidad Digital (ADS)', 1200000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3>SEO & Posicionamiento Web</h3>
+                <p>Optimización completa de tu sitio web para motores de búsqueda. Investigación de keywords, link building y auditorías técnicas.</p>
+                <div class="service-price">$950.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('SEO & Posicionamiento Web', 950000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">✍️</div>
+                <h3>Marketing de Contenidos</h3>
+                <p>Estrategia integral de contenido: blogs, artículos, ebooks, videos y podcasts. Storytelling que conecta con tu audiencia.</p>
+                <div class="service-price">$700.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('Marketing de Contenidos', 700000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📧</div>
+                <h3>Email Marketing Automation</h3>
+                <p>Campañas de email marketing automatizadas, segmentación avanzada, diseño de templates y análisis de conversiones.</p>
+                <div class="service-price">$600.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('Email Marketing Automation', 600000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Analítica & Reportes</h3>
+                <p>Implementación de Google Analytics, Data Studio dashboards personalizados y reportes mensuales detallados de rendimiento.</p>
+                <div class="service-price">$550.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('Analítica & Reportes', 550000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Diseño Gráfico & Branding</h3>
+                <p>Creación de identidad de marca, diseño de logos, paletas de colores, tipografías y manual de marca completo.</p>
+                <div class="service-price">$1.500.000 COP (único)</div>
+                <button class="add-to-cart" onclick="addToCart('Diseño Gráfico & Branding', 1500000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎬</div>
+                <h3>Producción de Video Marketing</h3>
+                <p>Videos profesionales para redes sociales, YouTube, publicidad y corporativos. Desde guión hasta post-producción.</p>
+                <div class="service-price">$2.000.000 COP/proyecto</div>
+                <button class="add-to-cart" onclick="addToCart('Producción de Video Marketing', 2000000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💻</div>
+                <h3>Desarrollo Web & E-commerce</h3>
+                <p>Sitios web profesionales, landing pages de alta conversión y tiendas online completas con pasarelas de pago.</p>
+                <div class="service-price">$3.500.000 COP (único)</div>
+                <button class="add-to-cart" onclick="addToCart('Desarrollo Web & E-commerce', 3500000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🤝</div>
+                <h3>Consultoría Estratégica Digital</h3>
+                <p>Asesoría personalizada, auditoría de marca digital, plan estratégico a 6 meses y sesiones mensuales de seguimiento.</p>
+                <div class="service-price">$1.800.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('Consultoría Estratégica Digital', 1800000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⭐</div>
+                <h3>Influencer Marketing</h3>
+                <p>Gestión de campañas con influencers, identificación de perfiles ideales, negociación y medición de resultados.</p>
+                <div class="service-price">$1.100.000 COP/campaña</div>
+                <button class="add-to-cart" onclick="addToCart('Influencer Marketing', 1100000)">Agregar al Carrito</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🚀</div>
+                <h3>Paquete Completo Premium</h3>
+                <p>Todo incluido: Redes sociales, ADS, SEO, contenido, email marketing, analítica y consultoría. La solución definitiva.</p>
+                <div class="service-price">$4.800.000 COP/mes</div>
+                <button class="add-to-cart" onclick="addToCart('Paquete Completo Premium', 4800000)">Agregar al Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="features" id="caracteristicas">
+        <h2 class="section-title">¿Por Qué Elegirnos?</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3>Resultados Rápidos</h3>
+                <p>Implementación inmediata y primeros resultados en 30 días</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">👥</div>
+                <h3>Equipo Experto</h3>
+                <p>Profesionales certificados con más de 8 años de experiencia</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📈</div>
+                <h3>ROI Garantizado</h3>
+                <p>Medición constante y optimización para maximizar tu inversión</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <h3>Estrategias Personalizadas</h3>
+                <p>Cada negocio es único, creamos soluciones a tu medida</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💬</div>
+                <h3>Soporte 24/7</h3>
+                <p>Disponibles cuando nos necesites, sin horarios limitados</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <h3>Confidencialidad Total</h3>
+                <p>Tus datos y estrategias están 100% protegidos</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="testimonios">
+        <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <h3>María Rodríguez - CEO TechStart Colombia</h3>
+                <p>"En 6 meses aumentamos nuestras ventas en un 240% gracias a las estrategias de Digital Solutions. Su equipo es excepcional y siempre están disponibles."</p>
+            </div>
+            <div class="testimonial-card">
+                <h3>Carlos Mendoza - Director Comercial Fashion Store</h3>
+                <p>"La gestión de nuestras redes sociales y campañas publicitarias ha sido impecable. Pasamos de 5,000 a 85,000 seguidores en Instagram en un año."</p>
+            </div>
+            <div class="testimonial-card">
+                <h3>Ana Lucía Gómez - Emprendedora</h3>
+                <p>"Invertir en marketing digital fue la mejor decisión para mi negocio. El equipo de Digital Solutions entendió perfectamente mi visión y la hicieron realidad."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Tu Carrito de Compras</h2>
+                <span class="close-cart" onclick="toggleCart()">✖</span>
+            </div>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Total: $0 COP</div>
+            <button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="checkout()">Finalizar Compra por WhatsApp</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/573208451276" target="_blank" class="whatsapp-float" title="Chatea con nosotros">
+        <span style="margin-top: 5px;">💬</span>
+    </a>
+
+    <footer id="contacto">
+        <h3 style="color: var(--highlight); margin-bottom: 1rem;">Digital Solutions Colombia</h3>
+        <p>📞 WhatsApp: +57 320 845 1276</p>
+        <p>📧 Email: info@digitalsolutions.co</p>
+        <p>📍 Medellín, Antioquia - Colombia</p>
+        <p style="margin-top: 2rem; color: #888;">© 2025 Digital Solutions. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+            alert(`✅ ${name} agregado al carrito`);
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #888;">Tu carrito está vacío</p>';
+                cartTotal.innerHTML = 'Total: $0 COP';
+                return;
+            }
+
+            let itemsHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                itemsHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <span style="color: var(--highlight);">$${item.price.toLocaleString('es-CO')} COP</span>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">Eliminar</button>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = itemsHTML;
+            cartTotal.innerHTML = `Total: $${total.toLocaleString('es-CO')} COP`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+
+            let message = '🛍️ *Solicitud de Servicios Digital Solutions*%0A%0A';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name}%0A   💰 $${item.price.toLocaleString('es-CO')} COP%0A%0A`;
+                total += item.price;
+            });
+
+            message += `*TOTAL: $${total.toLocaleString('es-CO')} COP*%0A%0A`;
+            message += '¡Hola! Estoy interesado en estos servicios. ¿Podrían brindarme más información?';
+
+            window.open(`https://wa.me/573208451276?text=${message}`, '_blank');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
